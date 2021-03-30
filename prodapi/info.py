@@ -4,7 +4,8 @@ import platform
 try:
     from importlib import metadata
 except ImportError:
-    import importlib_metadata as metadata  # Python 3.7 and lower
+    # Python 3.7 and lower
+    import importlib_metadata as metadata  # type: ignore
 
 __all__ = ("name", "version", "node", "environment")
 
