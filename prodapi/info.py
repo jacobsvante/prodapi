@@ -1,6 +1,10 @@
 import os
 import platform
-from importlib import metadata
+
+try:
+    from importlib import metadata
+except ImportError:
+    import importlib_metadata as metadata  # Python 3.7 and lower
 
 __all__ = ("name", "version", "node", "environment")
 
