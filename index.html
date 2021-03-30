@@ -207,8 +207,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#usage-example" class="md-nav__link">
     Usage example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developers" class="md-nav__link">
+    Developers
   </a>
   
 </li>
@@ -253,8 +267,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#usage-example" class="md-nav__link">
     Usage example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developers" class="md-nav__link">
+    Developers
   </a>
   
 </li>
@@ -281,11 +309,24 @@
 <li>Add health routes to the app via <code>app.with_health_routes()</code>. Adds a liveness route at <code>/__is-alive</code> and a readiness route at <code>/__is-ready</code> (both paths can be overridden). Useful together with <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/">Kubernetes liveness and readiness probes</a> for example.</li>
 <li>And, thanks to FastAPI, all routes are automatically added to the API documentation</li>
 </ul>
-<p>Installation</p>
+<h2 id="installation">Installation</h2>
 <pre><code>pip install prodapi
 </code></pre>
 <h2 id="usage-example">Usage example</h2>
 <p>An example app using ProdAPI <a href="https://github.com/jmagnusson/prodapi/tree/main/examples">can be found here</a>.</p>
+<h2 id="developers">Developers</h2>
+<p>To run the tests, do:</p>
+<ol>
+<li>Install Poetry (https://python-poetry.org/docs/)</li>
+<li>Install dependencies <code>poetry install</code></li>
+<li>Run tests: <code>poetry run pytest</code></li>
+</ol>
+<p>Before committing and publishing a pull request, do:</p>
+<ol>
+<li>Install pre-commit globally: <code>pip install pre-commit</code></li>
+<li>Run <code>pre-commit install</code> to install the Git hook</li>
+</ol>
+<p><a href="https://pre-commit.com/">pre-commit</a> will ensure that all code is formatted per our conventions. Failing to run this will probably make the CI tests fail in the PR instead.</p>
                 
               
               
