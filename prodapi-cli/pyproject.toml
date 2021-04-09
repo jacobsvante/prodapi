@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "prodapi"
+name = "prodapi-cli"
 version = "0.1.0"
-description = "A thin layer on top of FastAPI that adds some production readiness features."
+description = "CLI for creating prodapi apps via the command line."
 authors = ["Jacob Magnusson <m@jacobian.se>"]
 license = "MIT"
 readme = "README.md"
@@ -32,22 +32,23 @@ classifiers = [
     "Typing :: Typed",
 ]
 
+[tool.poetry.scripts]
+prodapi = 'prodapi_cli:app'
+
 [tool.poetry.dependencies]
-python = "^3.6"
-fastapi-security = "^0.3.1"
-orjson = "^3"
-importlib_metadata = { version = "^3", python = "<3.8" }
+python = "^3.6.1"
+typer = {extras = ["all"], version = "^0.3.2"}
+Jinja2 = "^2.11.3"
+pydantic = {extras = ["email"], version = "^1.8.1"}
+tomlkit = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"
 flake8 = "^3.9.0"
 isort = "^5.7.0"
-mkdocs-material = "^7.0.6"
 mypy = "^0.812"
 pytest = "^6"
 pytest-cov = "^2.11.1"
-requests = "^2.25.1"
-uvicorn = "^0.13.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -55,10 +56,11 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 88
-target-version = ["py37", "py38"]
+target-version = ["py36", "py37", "py38"]
 exclude = "{{project_slug}}"
 
 [tool.pytest.ini_options]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
 ]
+testpaths = ["tests"]

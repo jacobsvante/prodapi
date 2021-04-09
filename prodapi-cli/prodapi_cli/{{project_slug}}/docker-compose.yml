@@ -1,0 +1,62 @@
+version: "3"
+
+services:
+  app:
+    {% if docker_image_repo_url -%}
+    image: {{ docker_image_repo_url }}:latest
+    {%- endif %}
+    build: .
+    volumes:
+      - ./{{ project_slug_underscored }}:/app/{{ project_slug_underscored }}
+    ports:
+      - "{{ dev_port }}:80"
+    environment:
+      POSTGRES_URI: postgresql://postgres@postgres/postgres
+      {% if oauth2_audiences -%}
+      OAUTH2_AUDIENCES: '{{ oauth2_audiences }}'
+      {% endif %}
+      {% if oidc_discovery_url -%}
+      OIDC_DISCOVERY_URL: '{{ oidc_discovery_url }}'
+      {%- endif %}
+      {% if basic_auth_credentials -%}
+      BASIC_AUTH_CREDENTIALS: '{{ basic_auth_credentials }}'
+      {%- endif %}
+      {% if permission_overrides %}
+      PERMISSION_OVERRIDES: '{{ permission_overrides }}'
+      {%- endif %}
+
+  tests:
+    image: {{ docker_image_repo_url }}
+    environment:
+      POSTGRES_URI: postgresql://postgres@postgres-unittests/postgres
+    command:
+      - pytest-watch
+      - --nobeep
+      - --
+      - --cov={{ project_slug_underscored }}
+      - tests
+    stop_grace_period: 0s
+    volumes:
+      - ./{{ project_slug_underscored }}:/app/{{ project_slug_underscored }}
+      - ./tests:/app/tests
+
+  postgres:
+    image: postgres:13.2-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  postgres-unittests:
+    image: postgres:13.2-alpine
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  redis:
+    image: redis:6.2.1-alpine
+    volumes:
+      - redis:/data
+
+volumes:
+  postgres:
+  redis:

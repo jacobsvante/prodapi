@@ -1,0 +1,11 @@
+*.pyc
+/.coverage
+/.pytest_cache
+/*.egg-info
+/*.sublime-*
+/build
+/coverage.xml
+/dist
+/htmlcov
+/poetry.lock
+/site
